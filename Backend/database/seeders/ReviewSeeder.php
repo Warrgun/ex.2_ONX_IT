@@ -14,7 +14,7 @@ class ReviewSeeder extends Seeder
      */
     public function run(): void
     {
-        $book1 = books::find(1);
+        $book1 = books::find(3);
         $book1->userReviewes()->create([
             'name' => 'Bob',
             'rating' => 5,

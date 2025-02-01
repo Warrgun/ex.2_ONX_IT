@@ -12,7 +12,9 @@ class ReviewesController extends Controller
      */
     public function index()
     {
-        //
+        $review_arr = reviewes::latest()->get();
+
+        return response()->json($review_arr);
     }
 
     /**

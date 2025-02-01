@@ -7,11 +7,11 @@
                 <div class="col-12 pb-3 pb-md-0 col-md-2">Rating</div>
                 <div class="col-12 pb-3 pb-md-0 col-md-6">Review</div>
             </div>
-            <div v-for="item in books" :class="[item.id === 1 ? 'row w-100' : 'row w-100 border-top']" :key="item.id">
-                <div class="col-12 pb-3 pb-md-0 col-md-2">{{ item.title }}</div>
-                <div class="col-12 pb-3 pb-md-0 col-md-2">{{ item.author }}</div>
-                <div class="col-12 pb-3 pb-md-0 col-md-2">{{ item.book_created }}</div>
-                <div class="col-12 pb-3 pb-md-0 col-md-6">{{ item.description }}</div>
+            <div v-for="item in reviews" :class="[item.id === 1 ? 'row w-100' : 'row w-100 border-top']" :key="item.id">
+                <div class="col-12 pb-3 pb-md-0 col-md-2">{{ books.find(book => book.id === item.book_id)?.title }}</div>
+                <div class="col-12 pb-3 pb-md-0 col-md-2">{{ item.name }}</div>
+                <div class="col-12 pb-3 pb-md-0 col-md-2">{{ item.rating }}</div>
+                <div class="col-12 pb-3 pb-md-0 col-md-6">{{ item.review }}</div>
             </div>
         </div>
     </div>
@@ -22,8 +22,23 @@
   import axiosClient from '../axios';
   
   const books = ref([]);
+  const reviews = ref([]);
   const loading = ref(true);
   
+  onMounted(() => {
+    axiosClient
+      .get('/api/reviews')
+      .then((response) => {
+        reviews.value = response.data;
+      })
+      .catch((error) => {
+        console.error('Error fetching reviews:', error);
+      })
+      .finally(() => {
+        loading.value = false;
+      });
+  });
+
   onMounted(() => {
     axiosClient
       .get('/api/books')
@@ -40,7 +55,7 @@
   </script>
   
   <style scoped>
-   .fw-bold {
+  .fw-bold {
     font-weight: bold;
   }
   .border-bottom {
