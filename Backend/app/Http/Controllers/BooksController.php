@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\books;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Carbon\Carbon;
 
 class BooksController extends Controller
 {
@@ -30,7 +32,22 @@ class BooksController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'author' => 'required|string|max:255',
+            'description' => 'nullable|string',
+        ]);
+
+        $book_created = Carbon::parse($request->book_created)->format('Y-m-d');
+
+        $book = books::create([
+            'title' => Str::title($request->title),
+            'author' => Str::title($request->author),
+            'book_created' => $book_created,
+            'description' => $request->description,
+        ]);
+
+        return response()->json($book, 201);
     }
 
     /**

@@ -32,16 +32,24 @@
   
   <script setup>
   import { ref } from 'vue';
+  import axiosClient from '../axios';
   
   const book = ref({
     title: '',
     author: '',
-    creation_date: '',
+    book_created: '',
     description: '',
   });
+
   
   const addBook = () => {
-    console.log("Book Added:", book.value);
+    axiosClient.post('/api/book_data', book.value)
+        .then(response => {
+                console.log('Book added successfully:', response);
+            })
+        .catch(error => {
+            console.error('Error books:', error);
+        });
   };
   </script>
   
