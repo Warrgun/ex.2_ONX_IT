@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('author');
-            $table->date('created_at');
+            $table->date('book_created');
             $table->text('description')->nullable();
             $table->timestamps();
         });
