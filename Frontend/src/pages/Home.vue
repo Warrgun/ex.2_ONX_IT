@@ -1,7 +1,6 @@
 <template>
     <div class="container">
       <div class="row align-items-center">
-        
         <div class="col-6 ps-lg-5 ">
           <div class="book-form p-4 shadow-lg rounded">
             <h2 class="text-center mb-4">Add a New Book</h2>
