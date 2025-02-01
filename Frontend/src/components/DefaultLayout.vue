@@ -16,7 +16,7 @@
         </div>
         </div>
     </nav>
-    <main class=" container h-75 d-flex  align-items-end ">
+    <main class=" container h-100">
         <RouterView/>
     </main>
 </template>

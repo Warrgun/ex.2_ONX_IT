@@ -1,34 +1,34 @@
 <template>
-    <div class="container">
-      <div class="row align-items-center">
-        <div class="col-6 ps-lg-5 ">
-          <div class="book-form p-4 shadow-lg rounded">
-            <h2 class="text-center mb-4">Add a New Book</h2>
-            <form @submit.prevent="addBook">
-              <div class="mb-3">
-                <input v-model="book.title" type="text" class="form-control custom-input rounded-0" placeholder="Title" required>
-              </div>
-              <div class="mb-3">
-                <input v-model="book.author" type="text" class="form-control custom-input rounded-0" placeholder="Author" required>
-              </div>
-              <div class="mb-3">
-                <input v-model="book.creation_date" type="date" class="form-control custom-input rounded-0" required>
-              </div>
-              <div class="mb-3">
-                <textarea v-model="book.description" class="form-control custom-input rounded-0" placeholder="Description (optional)" rows="3"></textarea>
-              </div>
-              <button type="submit" class="btn btn-primary w-100">Add Book</button>
-            </form>
-          </div>
-        </div>
-        <div class="col-6 text-center text-light">
-            <div class="wrap-text none ">
-                <h1>Add books to our library. Share what parts you liked the most and try not to spoil anything!</h1>
+    <div class="container w-100 h-100  align-content-center">
+        <div class="row align-items-center">
+            <div class="col-6 ps-lg-5 ">
+                <div class="book-form p-4 shadow-lg rounded">
+                    <h2 class="text-center mb-4">Add a New Book</h2>
+                    <form @submit.prevent="addBook">
+                    <div class="mb-3">
+                        <input v-model="book.title" type="text" class="form-control custom-input rounded-0" placeholder="Title" required>
+                    </div>
+                    <div class="mb-3">
+                        <input v-model="book.author" type="text" class="form-control custom-input rounded-0" placeholder="Author" required>
+                    </div>
+                    <div class="mb-3">
+                        <input v-model="book.creation_date" type="date" class="form-control custom-input rounded-0" required>
+                    </div>
+                    <div class="mb-3">
+                        <textarea v-model="book.description" class="form-control custom-input rounded-0" placeholder="Description (optional)" rows="3"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Add Book</button>
+                    </form>
+                </div>
+            </div>
+            <div class="col-6 text-center text-light">
+                <div class="wrap-text none ">
+                    <h1>Add books to our library. Share what parts you liked the most and try not to spoil anything!</h1>
+                </div>
             </div>
         </div>
-      </div>
     </div>
-  </template>
+</template>
   
   <script setup>
   import { ref } from 'vue';

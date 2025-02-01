@@ -12,7 +12,9 @@ class BooksController extends Controller
      */
     public function index()
     {
-        //
+        $book_arr = books::latest()->get();
+
+        return response()->json($book_arr);
     }
 
     /**
