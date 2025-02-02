@@ -12,7 +12,7 @@
                         <input v-model="book.author" id="author" name="author" type="text" class="form-control custom-input rounded-0" placeholder="Author" required>
                     </div>
                     <div class="mb-3">
-                        <input v-model="book.creation_date" id="created" name="created" type="date" class="form-control custom-input rounded-0" required>
+                        <input v-model="book.book_created" id="created" name="created" type="date" class="form-control custom-input rounded-0" required>
                     </div>
                     <div class="mb-3">
                         <textarea v-model="book.description" id="desc" name="desc" class="form-control custom-input rounded-0" placeholder="Description (optional)" rows="3"></textarea>
@@ -43,8 +43,10 @@
 
   
   const addBook = () => {
+    console.log(book.value)
     axiosClient.post('/api/book_data', book.value)
         .then(response => {
+                book.value='';
                 console.log('Book added successfully:', response);
             })
         .catch(error => {

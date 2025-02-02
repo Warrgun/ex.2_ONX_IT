@@ -33,11 +33,11 @@
         </div>
       <div class="w-100 rounded-2 d-flex justify-content-between align-items-center text-bg-light p-3  mt-5">
         <h4 class="m-0">Book collection</h4>
-        <select class="form-select bg-primary text-light" aria-label="Default select example">
-          <option selected>filter by</option>
-          <option value="1">title</option>
-          <option value="2">author</option>
-          <option value="3">date</option>
+        <select class="form-select bg-primary text-light" @change="fetchData" v-model="selectedSort" aria-label="Default select example">
+          <option selected value="">filter by</option>
+          <option value="title">title</option>
+          <option value="author">author</option>
+          <option value="book_created">date</option>
         </select>
       </div>
       <div class="w-100 rounded-2 text-bg-light p-3 p-sm-5  my-3 ">
@@ -59,10 +59,11 @@
   
   <script setup>
   import book_data from '../books_data';
-  import { ref } from 'vue';
+  import { onMounted, ref } from 'vue';
   import axiosClient from '../axios';
 
-  const books = book_data();
+  const books = ref([]);
+  const selectedSort = ref('title')
 
   const review = ref({
     name: '',
@@ -70,6 +71,17 @@
     review: '',
   });
 
+  const fetchData=() =>{
+    axiosClient.get(`/api/books?sort_by=${selectedSort.value}&order=asc`)
+      .then(response => {
+        books.value = response.data;
+      })
+      .catch(error => {
+        console.error('Error fetching books:', error);
+      });
+  }
+
+  onMounted(fetchData);
   
   const addReview = () => {
     axiosClient.post('/api/review_data', review.value)
@@ -122,7 +134,7 @@
     box-shadow: none;
   }
   
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     .col-6 {
       width: 100%;
       text-align: center;

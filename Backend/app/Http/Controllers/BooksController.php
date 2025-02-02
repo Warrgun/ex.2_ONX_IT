@@ -12,9 +12,17 @@ class BooksController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $book_arr = books::latest()->get();
+        $allowed = ['title', 'author', 'book_created'];
+        $sortBy = $request->query('sort_by', 'title');
+        $order = $request->query('order', 'asc');
+
+        if (!in_array($sortBy, $allowed)) {
+            return response()->json(['error' => 'invalid sort field'], 400);
+        }
+
+        $book_arr = books::orderBy($sortBy, $order)->get();
 
         return response()->json($book_arr);
     }
@@ -32,18 +40,18 @@ class BooksController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
             'title' => 'required|string|max:255',
             'author' => 'required|string|max:255',
+            'book_created' => 'required|date',
             'description' => 'nullable|string',
         ]);
-
-        $book_created = Carbon::parse($request->book_created)->format('Y-m-d');
 
         $book = books::create([
             'title' => Str::title($request->title),
             'author' => Str::title($request->author),
-            'book_created' => $book_created,
+            'book_created' => $request->book_created,
             'description' => $request->description,
         ]);
 

@@ -1,5 +1,5 @@
 <template>
-    <div class="container-fluid w-100 p-0">
+    <div class="container w-100 p-0">
         <div class="w-100 rounded-2 text-bg-light p-5  mt-5">
           <div class="row w-100 d-none d-md-flex fw-bold border-bottom pb-2">
                 <div class="col-12 pb-3 pb-md-0 col-md-2">Title</div>
@@ -8,10 +8,10 @@
                 <div class="col-12 pb-3 pb-md-0 col-md-6">Review</div>
             </div>
             <div v-for="item in reviews" :class="[item.id === 1 ? 'row w-100' : 'row w-100 border-top']" :key="item.id">
-                <div class="col-12 pb-3 pb-md-0 col-md-2">{{ books.find(book => book.id === item.book_id)?.title }}</div>
-                <div class="col-12 pb-3 pb-md-0 col-md-2">{{ item.name }}</div>
-                <div class="col-12 pb-3 pb-md-0 col-md-2">{{ item.rating }}</div>
-                <div class="col-12 pb-3 pb-md-0 col-md-6">{{ item.review }}</div>
+                <div class="col-12 pb-3 pb-md-0 col-md-2"><span class="show fw-bold">Title:</span> {{ books.find(book => book.id === item.book_id)?.title }}</div>
+                <div class="col-12 pb-3 pb-md-0 col-md-2"><span class="show fw-bold">Name:</span> {{ item.name }}</div>
+                <div class="col-12 pb-3 pb-md-0 col-md-2"><span class="show fw-bold">Rating:</span> {{ item.rating }}</div>
+                <div class="col-12 pb-3 pb-md-0 col-md-6"><span class="show fw-bold">Review</span> {{ item.review }}</div>
             </div>
         </div>
     </div>
@@ -20,8 +20,9 @@
   <script setup>
   import { onMounted, ref } from 'vue';
   import axiosClient from '../axios';
+import book_data from '../books_data';
   
-  const books = ref([]);
+  const books = book_data();
   const reviews = ref([]);
   const loading = ref(true);
   
@@ -38,28 +39,29 @@
         loading.value = false;
       });
   });
-
-  onMounted(() => {
-    axiosClient
-      .get('/api/books')
-      .then((response) => {
-        books.value = response.data;
-      })
-      .catch((error) => {
-        console.error('Error fetching books:', error);
-      })
-      .finally(() => {
-        loading.value = false;
-      });
-  });
   </script>
   
   <style scoped>
-  .fw-bold {
-    font-weight: bold;
+  .border-bottom, .border-top {
+    border-bottom: 2px solid #a9a9a9 !important;
   }
-  .border-bottom {
-    border-bottom: 2px solid #ddd;
+
+  .none{
+    max-width: 35em;
+    text-shadow: 2px 2px 3px black;
+  }
+  .show{
+    display: none;
+  }
+  
+  @media (max-width: 767px) {
+
+    .none{
+        display: none;
+    }
+    .show{
+      display: inline;
+    }
   }
   </style>
   
