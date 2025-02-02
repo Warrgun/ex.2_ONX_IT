@@ -90,8 +90,11 @@ class ReviewesController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(reviewes $reviewes)
+    public function destroy($id)
     {
-        //
+        $review = reviewes::findOrFail($id);
+        $review->delete();
+
+        return response()->json(['message' => 'Review deleted successfully'], 200);
     }
 }
