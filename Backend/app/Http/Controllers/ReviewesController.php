@@ -31,6 +31,7 @@ class ReviewesController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
             'book_id' => 'required|exists:books,id',
             'name' => 'required|string|max:255',
@@ -67,9 +68,23 @@ class ReviewesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, reviewes $reviewes)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'book_id' => 'required|exists:books,id',
+            'name' => 'required|string|max:255',
+            'rating' => 'required|integer|min:0|max:5',
+            'review' => 'required|string',
+        ]);
+
+        $review = reviewes::findOrFail($id);
+        $review->book_id = $request->book_id;
+        $review->name = Str::title($request->name);
+        $review->rating = $request->rating;
+        $review->review = $request->review;
+        $review->save();
+
+        return response()->json($review, 200);
     }
 
     /**

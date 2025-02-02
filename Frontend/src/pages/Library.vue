@@ -7,18 +7,18 @@
                     <form class="mb-3" @submit.prevent="addReview">
                       <div class="mb-3">
                         <h6>Choose a book</h6>
-                        <select v-model="review.book_id" class="form-select w-100 bg-primary bg-opacity-75 text-light overflow-auto" size="2"  aria-label="Size 3 select example">
+                        <select v-model="review.book_id" class="form-select w-100 bg-primary bg-opacity-75 text-light overflow-auto" size="2" id="books" name="books"  aria-label="Size 3 select example">
                           <option v-for="book in books" :key="book.id" :value="book.id">{{ book.title }}</option>
                         </select>
                       </div>
                       <div class="mb-3">
-                          <input v-model="review.name" id="name" name="name" type="text" class="form-control custom-input rounded-0" placeholder="Name" required>
+                          <input v-model="review.name" id="name1" name="name1" type="text" class="form-control custom-input rounded-0" placeholder="Name" required>
                       </div>
                       <div class="mb-3">
-                          <input v-model="review.rating" id="rating" name="rating" type="number" min="0" max="5" class="form-control custom-input rounded-0" placeholder="rating 0/5" required>
+                          <input v-model="review.rating" id="rating1" name="rating1" type="number" min="0" max="5" class="form-control custom-input rounded-0" placeholder="rating 0/5" required>
                       </div>
                       <div class="mb-3">
-                          <textarea v-model="review.review" id="review" name="review" placeholder="Your review" class="form-control custom-input rounded-0" required></textarea>
+                          <textarea v-model="review.review" id="review1" name="review1" placeholder="Your review" class="form-control custom-input rounded-0" required></textarea>
                       </div>
                       <button type="submit" class="btn btn-primary w-100">Send a review</button>
                     </form>
