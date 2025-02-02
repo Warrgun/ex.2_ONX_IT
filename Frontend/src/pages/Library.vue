@@ -7,7 +7,7 @@
                     <form class="mb-3" @submit.prevent="addReview">
                       <div class="mb-3">
                         <h6>Choose a book</h6>
-                        <select class="form-select w-100 bg-primary bg-opacity-75 text-light overflow-auto" size="2"  aria-label="Size 3 select example">
+                        <select v-model="review.book_id" class="form-select w-100 bg-primary bg-opacity-75 text-light overflow-auto" size="2"  aria-label="Size 3 select example">
                           <option v-for="book in books" :key="book.id" :value="book.id">{{ book.title }}</option>
                         </select>
                       </div>
@@ -58,7 +58,6 @@
   </template>
   
   <script setup>
-  import book_data from '../books_data';
   import { onMounted, ref } from 'vue';
   import axiosClient from '../axios';
 
@@ -66,6 +65,7 @@
   const selectedSort = ref('title')
 
   const review = ref({
+    book_id:null,
     name: '',
     rating: null,
     review: '',
@@ -84,6 +84,7 @@
   onMounted(fetchData);
   
   const addReview = () => {
+    console.log(review.value)
     axiosClient.post('/api/review_data', review.value)
         .then(response => {
                 console.log('Book added successfully:', response);

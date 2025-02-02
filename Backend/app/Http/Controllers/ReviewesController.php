@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\reviewes;
 use Illuminate\Http\Request;
+use \Illuminate\Support\Str;
 
 class ReviewesController extends Controller
 {
@@ -12,7 +13,7 @@ class ReviewesController extends Controller
      */
     public function index()
     {
-        $review_arr = reviewes::latest()->get();
+        $review_arr = reviewes::with('book')->get();
 
         return response()->json($review_arr);
     }
@@ -30,7 +31,21 @@ class ReviewesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'book_id' => 'required|exists:books,id',
+            'name' => 'required|string|max:255',
+            'rating' => 'required|integer|min:0|max:5',
+            'review' => 'required|text',
+        ]);
+
+        $review_data = reviewes::create([
+            'book_id' => $request->book_id,
+            'name' => Str::title($request->name),
+            'rating' => $request->rating,
+            'review' => $request->review,
+        ]);
+
+        return response()->json($review_data, 201);
     }
 
     /**

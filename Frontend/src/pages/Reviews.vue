@@ -8,7 +8,7 @@
                 <div class="col-12 pb-3 pb-md-0 col-md-6">Review</div>
             </div>
             <div v-for="item in reviews" :class="[item.id === 1 ? 'row w-100' : 'row w-100 border-top']" :key="item.id">
-                <div class="col-12 pb-3 pb-md-0 col-md-2"><span class="show fw-bold">Title:</span> {{ books.find(book => book.id === item.book_id)?.title }}</div>
+                <div class="col-12 pb-3 pb-md-0 col-md-2"><span class="show fw-bold">Title:</span> {{ item.book.title }}</div>
                 <div class="col-12 pb-3 pb-md-0 col-md-2"><span class="show fw-bold">Name:</span> {{ item.name }}</div>
                 <div class="col-12 pb-3 pb-md-0 col-md-2"><span class="show fw-bold">Rating:</span> {{ item.rating }}</div>
                 <div class="col-12 pb-3 pb-md-0 col-md-6"><span class="show fw-bold">Review</span> {{ item.review }}</div>
@@ -20,9 +20,7 @@
   <script setup>
   import { onMounted, ref } from 'vue';
   import axiosClient from '../axios';
-import book_data from '../books_data';
-  
-  const books = book_data();
+
   const reviews = ref([]);
   const loading = ref(true);
   
