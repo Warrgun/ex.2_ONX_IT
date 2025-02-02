@@ -6,16 +6,16 @@
                     <h2 class="text-center mb-4">Add a New Book</h2>
                     <form @submit.prevent="addBook">
                     <div class="mb-3">
-                        <input v-model="book.title" type="text" class="form-control custom-input rounded-0" placeholder="Title" required>
+                        <input v-model="book.title" id="title" name="title" type="text" class="form-control custom-input rounded-0" placeholder="Title" required>
                     </div>
                     <div class="mb-3">
-                        <input v-model="book.author" type="text" class="form-control custom-input rounded-0" placeholder="Author" required>
+                        <input v-model="book.author" id="author" name="author" type="text" class="form-control custom-input rounded-0" placeholder="Author" required>
                     </div>
                     <div class="mb-3">
-                        <input v-model="book.creation_date" type="date" class="form-control custom-input rounded-0" required>
+                        <input v-model="book.creation_date" id="created" name="created" type="date" class="form-control custom-input rounded-0" required>
                     </div>
                     <div class="mb-3">
-                        <textarea v-model="book.description" class="form-control custom-input rounded-0" placeholder="Description (optional)" rows="3"></textarea>
+                        <textarea v-model="book.description" id="desc" name="desc" class="form-control custom-input rounded-0" placeholder="Description (optional)" rows="3"></textarea>
                     </div>
                     <button type="submit" class="btn btn-primary w-100">Add Book</button>
                     </form>

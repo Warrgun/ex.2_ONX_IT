@@ -19,9 +19,7 @@
         </div>
         </div>
     </nav>
-    <main class=" container h-100">
-        <RouterView/>
-    </main>
+    <RouterView/>
 </template>
 <script setup>
 
@@ -34,6 +32,7 @@ import { RouterLink, RouterView } from 'vue-router';
         background-color: azure;
         border-radius: 2em;
     }
+
     @media(max-width:575px){
         .navbar-bg{
             border-radius: 0;

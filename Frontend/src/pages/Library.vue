@@ -1,50 +1,139 @@
 <template>
-    <div class="container-fluid w-100 p-0">
-        <div class="w-100 rounded-2 text-bg-light p-5  mt-5">
-          <div class="row w-100 d-none d-md-flex fw-bold border-bottom pb-2">
-                <div class="col-12 pb-3 pb-md-0 col-md-2">Title</div>
-                <div class="col-12 pb-3 pb-md-0 col-md-2">Name</div>
-                <div class="col-12 pb-3 pb-md-0 col-md-2">Rating</div>
-                <div class="col-12 pb-3 pb-md-0 col-md-6">Review</div>
+    <div class="container w-100  mt-5">
+      <div class="row align-items-center">
+            <div class="col-6 ps-lg-5 order-1">
+                <div class="book-form p-4 shadow-lg rounded ms-lg-5 ">
+                    <h2 class="text-center mb-4">Review</h2>
+                    <form class="mb-3" @submit.prevent="addReview">
+                      <div class="mb-3">
+                        <h6>Choose a book</h6>
+                        <select class="form-select w-100 bg-primary bg-opacity-75 text-light overflow-auto" size="2"  aria-label="Size 3 select example">
+                          <option v-for="book in books" :key="book.id" :value="book.id">{{ book.title }}</option>
+                        </select>
+                      </div>
+                      <div class="mb-3">
+                          <input v-model="review.name" id="name" name="name" type="text" class="form-control custom-input rounded-0" placeholder="Name" required>
+                      </div>
+                      <div class="mb-3">
+                          <input v-model="review.rating" id="rating" name="rating" type="number" min="0" max="5" class="form-control custom-input rounded-0" placeholder="rating 0/5" required>
+                      </div>
+                      <div class="mb-3">
+                          <textarea v-model="review.review" id="review" name="review" placeholder="Your review" class="form-control custom-input rounded-0" required></textarea>
+                      </div>
+                      <button type="submit" class="btn btn-primary w-100">Send a review</button>
+                    </form>
+                    <a class=" text-dark opacity-75 text-decoration-none" target="_blank" href="https://www.vecteezy.com/free-png/book">Book PNGs by Vecteezy</a>
+                </div>
             </div>
-            <div v-for="item in books" :class="[item.id === 1 ? 'row w-100' : 'row w-100 border-top']" :key="item.id">
-                <div class="col-12 pb-3 pb-md-0 col-md-2">{{ item.title }}</div>
-                <div class="col-12 pb-3 pb-md-0 col-md-2">{{ item.author }}</div>
-                <div class="col-12 pb-3 pb-md-0 col-md-2">{{ item.book_created }}</div>
-                <div class="col-12 pb-3 pb-md-0 col-md-6">{{ item.description }}</div>
+            <div class="col-6 text-center text-light">
+                <div class="wrap-text none ">
+                    <img src="../assets/small-book.png" class=" object-fit-contain w-50" alt="pic1">
+                </div>
             </div>
         </div>
+      <div class="w-100 rounded-2 d-flex justify-content-between align-items-center text-bg-light p-3  mt-5">
+        <h4 class="m-0">Book collection</h4>
+        <select class="form-select bg-primary text-light" aria-label="Default select example">
+          <option selected>filter by</option>
+          <option value="1">title</option>
+          <option value="2">author</option>
+          <option value="3">date</option>
+        </select>
+      </div>
+      <div class="w-100 rounded-2 text-bg-light p-3 p-sm-5  my-3 ">
+        <div class="row w-100 d-none d-md-flex fw-bold border-bottom pb-2">
+              <div class="col-12 pb-3 pb-md-0 col-md-2">Title</div>
+              <div class="col-12 pb-3 pb-md-0 col-md-2">Author</div>
+              <div class="col-12 pb-3 pb-md-0 col-md-2">Published</div>
+              <div class="col-12 pb-3 pb-md-0 col-md-6">Description</div>
+          </div>
+          <div v-for="item in books" :class="[item.id === 1 ? 'row w-100' : 'row w-100 border-top']" :key="item.id">
+              <div class="col-12 pb-3 pb-md-0 col-md-2"><span class=" show fw-bold">Title:</span> {{ item.title }}</div>
+              <div class="col-12 pb-3 pb-md-0 col-md-2"><span class=" show fw-bold">Author:</span> {{ item.author }}</div>
+              <div class="col-12 pb-3 pb-md-0 col-md-2"><span class=" show fw-bold">Published:</span> {{ item.book_created }}</div>
+              <div class="col-12 pb-3 pb-md-0 col-md-6"> <span class=" show fw-bold">Description:</span> {{ item.description }}</div>
+          </div>
+      </div>
     </div>
   </template>
   
   <script setup>
-  import { onMounted, ref } from 'vue';
+  import book_data from '../books_data';
+  import { ref } from 'vue';
   import axiosClient from '../axios';
-  
-  const books = ref([]);
-  const loading = ref(true);
-  
-  onMounted(() => {
-    axiosClient
-      .get('/api/books')
-      .then((response) => {
-        books.value = response.data;
-      })
-      .catch((error) => {
-        console.error('Error fetching books:', error);
-      })
-      .finally(() => {
-        loading.value = false;
-      });
+
+  const books = book_data();
+
+  const review = ref({
+    name: '',
+    rating: null,
+    review: '',
   });
+
+  
+  const addReview = () => {
+    axiosClient.post('/api/review_data', review.value)
+        .then(response => {
+                console.log('Book added successfully:', response);
+            })
+        .catch(error => {
+            console.error('Error books:', error);
+        });
+  };
   </script>
   
   <style scoped>
    .fw-bold {
     font-weight: bold;
   }
-  .border-bottom {
-    border-bottom: 2px solid #ddd;
+  .border-bottom, .border-top {
+    border-bottom: 2px solid #a9a9a9 !important;
+  }
+
+  .form-select{
+    width: 7em;
+  }
+
+  .book-form {
+    background: rgba(255, 255, 255, 1);
+    border-radius: 10px;
+    max-width: 35em;
+  }
+  .none{
+    max-width: 35em;
+    text-shadow: 2px 2px 3px black;
+  }
+  .show{
+    display: none;
+  }
+  
+  .custom-input {
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.5);
+    outline: none;
+    color: black;
+    font-size: 16px;
+    transition: border-bottom 0.3s ease-in-out;
+  }
+  
+  .custom-input:focus {
+    border-bottom: 2px solid rgba(0, 0, 0, 0.8);
+    box-shadow: none;
+  }
+  
+  @media (max-width: 768px) {
+    .col-6 {
+      width: 100%;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .none{
+        display: none;
+    }
+    .show{
+      display: inline;
+    }
   }
   </style>
   
