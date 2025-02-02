@@ -87,10 +87,10 @@
     console.log(review.value)
     axiosClient.post('/api/review_data', review.value)
         .then(response => {
-                console.log('Book added successfully:', response);
+                console.log('Review added successfully:', response);
             })
         .catch(error => {
-            console.error('Error books:', error);
+            console.error('Error review:', error);
         });
   };
   </script>

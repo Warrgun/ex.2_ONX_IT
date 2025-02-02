@@ -12,6 +12,6 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 Route::post('/book_data', [BooksController::class, 'store']);
 Route::get('/books', [BooksController::class, 'index']);
 Route::get('/reviews', [ReviewesController::class, 'index']);
-Route::post('/review_data', [BooksController::class, 'store']);
+Route::post('/review_data', [ReviewesController::class, 'store']);
 Route::put('/review_data/{id}', [ReviewesController::class, 'update']);
 Route::delete('/review_data/{id}', [ReviewesController::class, 'destroy']);

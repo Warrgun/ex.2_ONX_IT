@@ -12,6 +12,10 @@
                 <div class="col-12 pb-3 pb-md-0 col-md-2"><span class="show fw-bold">Name:</span> {{ item.name }}</div>
                 <div class="col-12 pb-3 pb-md-0 col-md-2"><span class="show fw-bold">Rating:</span> {{ item.rating }}</div>
                 <div class="col-12 pb-3 pb-md-0 col-md-6"><span class="show fw-bold">Review</span> {{ item.review }}</div>
+                <div class="btn-group">
+                  <button class="btn btn-outline-primary" @click="editReview(item.id)">edit</button>
+                  <button class="btn btn-danger" @click="deleteReview(item.id)">remove</button>
+                </div>
             </div>
         </div>
     </div>
@@ -23,6 +27,7 @@
 
   const reviews = ref([]);
   const loading = ref(true);
+  const books = ref([]);
   
   onMounted(() => {
     axiosClient
@@ -37,6 +42,23 @@
         loading.value = false;
       });
   });
+
+  const fetchData=() =>{
+    axiosClient.get(`/api/books`)
+      .then(response => {
+        books.value = response.data;
+      })
+      .catch(error => {
+        console.error('Error fetching books:', error);
+      });
+  }
+
+  onMounted(fetchData);
+
+    const editReview = (reviewId) => {
+    const review = books.value.find(books => books.id === reviewId);
+    reviewForm.value = { ...review };
+  }
   </script>
   
   <style scoped>

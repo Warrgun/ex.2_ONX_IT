@@ -36,7 +36,7 @@ class ReviewesController extends Controller
             'book_id' => 'required|exists:books,id',
             'name' => 'required|string|max:255',
             'rating' => 'required|integer|min:0|max:5',
-            'review' => 'required|text',
+            'review' => 'required|string',
         ]);
 
         $review_data = reviewes::create([
