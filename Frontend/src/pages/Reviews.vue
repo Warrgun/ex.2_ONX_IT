@@ -14,7 +14,7 @@
                   <div :class="{'elements wrap-text ps-1 ps-md-2':true,'review-border': index !== item.user_reviewes.length-1}"><span class="show fw-bold">Rating:</span> {{ e.rating }}/5</div>
                   <div :class="{'d-flex flex-column flex-md-row justify-content-between ps-1 ps-md-2':true,'review-border': index !== item.user_reviewes.length-1}">
                     <div :class="{'wrap-text':true}"><span class="show fw-bold">Review:</span> {{ e.review }}</div>
-                    <div class="my-2 ms-1 text-end">
+                    <div class="d-flex d-md-block justify-content-end">
                       <ModalComponent  :prop="e" :func="fetchData"/>
                     </div>
                     
@@ -64,8 +64,8 @@
       });
   }
 
-
   onMounted(fetchData);
+
   </script>
   
   <style scoped>

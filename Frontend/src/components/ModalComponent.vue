@@ -1,7 +1,7 @@
 <template>
-  <div class="btn-group">
+  <div class="btn-group my-2 ms-md-1">
     <button class="btn btn-outline-primary" @click="editReview(prop)">Edit</button>
-    <button class="btn btn-danger">Remove</button>
+    <button class="btn btn-danger" @click="deleteReview(prop.id)">Remove</button>
   </div>
 
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" ref="modalRef">
@@ -83,6 +83,19 @@ const updateReview = () => {
 const cancelEdit = () => {
   editingReview.value = null
 }
+
+const deleteReview = (reviewId) => {
+  if (!confirm("Are you sure you want to delete this review?")) return;
+
+  axiosClient
+    .delete(`/api/review_data/${reviewId}`)
+    .then(() => {
+      props.func();
+    })
+    .catch((error) => {
+      console.error("Error deleting review:", error);
+    });
+};
 </script>
 
 <style scoped>
