@@ -1,6 +1,6 @@
 <template>
     <div class="container w-100 p-0">
-        <div class="w-100 rounded-2 text-bg-light p-5  mt-5">
+        <div class="w-100 rounded-2 text-bg-light p-1 p-sm-3 p-md-4 p-lg-5  mt-5">
           <div class="row w-100 d-none d-md-flex fw-bold mb-2 ">
                 <div class="col-12 pb-3 pb-md-0 col-md-2">Title</div>
                 <div class="col-12 pb-3 pb-md-0 col-md-2">Name</div>
@@ -8,13 +8,13 @@
                 <div class="col-12 pb-3 pb-md-0 col-md-6">Review</div>
             </div>
             <div v-for="(item,i) in books" :class="{'book-container review-border':true, 'd-none':item.user_reviewes.length ===0,}" :key="item.id">
-                <div class="book-title border-right"><span class="show fw-bold">Title:</span>{{ item.title }}</div>
-                <div v-for="e in item.user_reviewes" class=" span-auto" :key="e.id">
-                  <div class="border-right"><span class="show fw-bold">Name:</span>&nbsp;{{ e.name }}</div>
-                  <div class="border-right"><span class="show fw-bold">Rating:</span>&nbsp;{{ e.rating }}/5</div>
-                  <div class="d-flex justify-content-between">
-                    <div class=""><span class="show fw-bold">Review:</span>&nbsp;{{ e.review }}</div>
-                    <div class="">
+                <div class="book-title border-right"><span class="show fw-bold">Title<br/></span>{{ item.title }}</div>
+                <div v-for="(e, index) in item.user_reviewes" class=" span-auto" :key="e.id">
+                  <div :class="{'elements wrap-text ps-1 ps-md-2':true, 'review-border': index !== item.user_reviewes.length-1}"><span class="show fw-bold">Name:</span> {{ e.name }}</div>
+                  <div :class="{'elements wrap-text ps-1 ps-md-2':true,'review-border': index !== item.user_reviewes.length-1}"><span class="show fw-bold">Rating:</span> {{ e.rating }}/5</div>
+                  <div :class="{'d-flex flex-column flex-md-row justify-content-between ps-1 ps-md-2':true,'review-border': index !== item.user_reviewes.length-1}">
+                    <div :class="{'wrap-text':true}"><span class="show fw-bold">Review:</span> {{ e.review }}</div>
+                    <div class="my-2 ms-1 text-end">
                       <ModalComponent  :prop="e" :func="fetchData"/>
                     </div>
                     
@@ -69,6 +69,11 @@
   </script>
   
   <style scoped>
+  .wrap-text{
+    word-wrap: break-word;
+    word-break: break-all;
+  }
+
   .book-container {
     display: grid;
     grid-template-rows: auto;
@@ -81,7 +86,7 @@
     border-right: 1px solid rgb(145, 145, 145);
   }
 
-  .border-right{
+  .border-right, .elements{
     border-right: 1px solid rgb(145, 145, 145);
   }
 
@@ -109,6 +114,13 @@
     }
     .show{
       display: inline;
+    }
+
+    .span-auto{
+      grid-template-columns: 1fr;
+    }
+    .elements{
+      border: none;
     }
   }
   </style>

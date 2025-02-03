@@ -1,5 +1,5 @@
 <template>
-  <div class="btn-group mb-2">
+  <div class="btn-group">
     <button class="btn btn-outline-primary" @click="editReview(prop)">Edit</button>
     <button class="btn btn-danger">Remove</button>
   </div>
