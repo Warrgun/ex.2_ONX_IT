@@ -27,6 +27,13 @@ class BooksController extends Controller
         return response()->json($book_arr);
     }
 
+    public function indexReviews()
+    {
+        $book_arr = books::with('userReviewes')->has('userReviewes')->get();
+
+        return response()->json($book_arr);
+    }
+
     /**
      * Show the form for creating a new resource.
      */

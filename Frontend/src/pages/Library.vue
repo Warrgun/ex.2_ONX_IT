@@ -88,6 +88,7 @@
     axiosClient.post('/api/review_data', review.value)
         .then(response => {
                 console.log('Review added successfully:', response);
+                review.value ={name: '', rating: null, review: ''};
             })
         .catch(error => {
             console.error('Error review:', error);

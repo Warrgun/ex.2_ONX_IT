@@ -7,7 +7,7 @@
                 <div class="col-12 pb-3 pb-md-0 col-md-2">Rating</div>
                 <div class="col-12 pb-3 pb-md-0 col-md-6">Review</div>
             </div>
-            <div v-for="(item,i) in books" :class="{'book-container review-border':true, 'd-none':item.user_reviewes.length ===0,}" :key="item.id">
+            <div v-for="(item,i) in books" :class="{'book-container':true,'review-border': i !== books.length -1}" :key="item.id" :style="{'--row-span': item.user_reviewes.length + 1}">
                 <div class="book-title border-right"><span class="show fw-bold">Title<br/></span>{{ item.title }}</div>
                 <div v-for="(e, index) in item.user_reviewes" class=" span-auto" :key="e.id">
                   <div :class="{'elements wrap-text ps-1 ps-md-2':true, 'review-border': index !== item.user_reviewes.length-1}"><span class="show fw-bold">Name:</span> {{ e.name }}</div>
@@ -54,7 +54,7 @@
   });
 
   const fetchData=() =>{
-    axiosClient.get(`/api/books`)
+    axiosClient.get(`/api/books-review`)
       .then(response => {
         books.value = response.data;
         console.log(response.data)
@@ -82,7 +82,7 @@
   }
 
   .book-title {
-    grid-row: span 2;
+    grid-row: span var(--row-span, 2);
     border-right: 1px solid rgb(145, 145, 145);
   }
 
