@@ -22,7 +22,7 @@ class BooksController extends Controller
             return response()->json(['error' => 'invalid sort field'], 400);
         }
 
-        $book_arr = books::orderBy($sortBy, $order)->get();
+        $book_arr = books::with('userReviewes')->orderBy($sortBy, $order)->get();
 
         return response()->json($book_arr);
     }

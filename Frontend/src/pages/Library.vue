@@ -41,16 +41,16 @@
         </select>
       </div>
       <div class="w-100 rounded-2 text-bg-light p-3 p-sm-5  my-3 ">
-        <div class="row w-100 d-none d-md-flex fw-bold border-bottom pb-2">
+        <div class="row w-100 d-none d-md-flex fw-bold pb-2">
               <div class="col-12 pb-3 pb-md-0 col-md-2">Title</div>
               <div class="col-12 pb-3 pb-md-0 col-md-2">Author</div>
               <div class="col-12 pb-3 pb-md-0 col-md-2">Published</div>
               <div class="col-12 pb-3 pb-md-0 col-md-6">Description</div>
           </div>
-          <div v-for="item in books" :class="[item.id === 1 ? 'row w-100' : 'row w-100 border-top']" :key="item.id">
-              <div class="col-12 pb-3 pb-md-0 col-md-2"><span class=" show fw-bold">Title:</span> {{ item.title }}</div>
-              <div class="col-12 pb-3 pb-md-0 col-md-2"><span class=" show fw-bold">Author:</span> {{ item.author }}</div>
-              <div class="col-12 pb-3 pb-md-0 col-md-2"><span class=" show fw-bold">Published:</span> {{ item.book_created }}</div>
+          <div v-for="(item,i) in books" :class="{'row':true, 'book-border': i!== books.length-1}" :key="item.id">
+              <div class="col-12 pb-3 pb-md-0 col-md-2 border-right"><span class=" show fw-bold">Title:</span> {{ item.title }}</div>
+              <div class="col-12 pb-3 pb-md-0 col-md-2 border-right"><span class=" show fw-bold">Author:</span> {{ item.author }}</div>
+              <div class="col-12 pb-3 pb-md-0 col-md-2 border-right"><span class=" show fw-bold">Published:</span> {{ item.book_created }}</div>
               <div class="col-12 pb-3 pb-md-0 col-md-6"> <span class=" show fw-bold">Description:</span> {{ item.description }}</div>
           </div>
       </div>
@@ -99,8 +99,12 @@
    .fw-bold {
     font-weight: bold;
   }
-  .border-bottom, .border-top {
-    border-bottom: 2px solid #a9a9a9 !important;
+  .book-border{
+    border-bottom: 1px solid rgb(145, 145, 145);
+  }
+
+  .border-right{
+    border-right: 1px solid rgb(145, 145, 145);
   }
 
   .form-select{

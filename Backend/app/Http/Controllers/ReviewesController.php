@@ -70,21 +70,16 @@ class ReviewesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'book_id' => 'required|exists:books,id',
+        $validated = $request->validate([
             'name' => 'required|string|max:255',
             'rating' => 'required|integer|min:0|max:5',
             'review' => 'required|string',
         ]);
 
         $review = reviewes::findOrFail($id);
-        $review->book_id = $request->book_id;
-        $review->name = Str::title($request->name);
-        $review->rating = $request->rating;
-        $review->review = $request->review;
-        $review->save();
+        $review->update($validated);
 
-        return response()->json($review, 200);
+        return response()->json(['message' => 'Review updated'], 200);
     }
 
     /**
