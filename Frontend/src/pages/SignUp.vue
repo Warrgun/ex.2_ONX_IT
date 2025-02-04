@@ -1,6 +1,5 @@
 <template >
     <GuestLayout>
-        {{ errors }}
         <form @submit.prevent="submit" class=" bg-light rounded-1 px-4 py-5">
             <h1 class="">Sign Up</h1>
             <p class=" text-secondary">Please fill in this form to create an account!</p>
