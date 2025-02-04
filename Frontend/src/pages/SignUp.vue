@@ -1,5 +1,6 @@
 <template >
     <GuestLayout>
+        {{ errors }}
         <form @submit.prevent="submit" class=" bg-light rounded-1 px-4 py-5">
             <h1 class="">Sign Up</h1>
             <p class=" text-secondary">Please fill in this form to create an account!</p>
@@ -11,7 +12,7 @@
                     </span>
                     <input v-model="data.name" type="text" class="form-control focus-ring focus-ring-success" id="exampleInputName1"  aria-describedby="nameHelp" placeholder="Username">
                 </div>
-                <small :class="{'text-danger':true,'ms-5':errors.name[0]}">{{errors.name ? errors.name[0]:'' }}</small>
+                <small :class="{'text-danger':true,'ms-5':!errors.name? false:errors.name.length>0?true:false}">{{errors.name ? errors.name[0]:'' }}</small>
             </div>
             <div class="form-group mb-4">
                 <div class="input-group">
@@ -20,7 +21,7 @@
                     </span>
                     <input v-model="data.email" type="email" class="form-control focus-ring focus-ring-success" id="exampleInputEmail1"  aria-describedby="emailHelp" placeholder="Email Address">
                 </div>
-                <small :class="{'text-danger':true,'ms-5':errors.email[0]}">{{errors.email ? errors.email[0]:'' }}</small>
+                <small :class="{'text-danger':true,'ms-5':!errors.email? false:errors.email.length>0?true:false}">{{errors.email ? errors.email[0]:'' }}</small>
             </div>
             <div class="form-group mb-4">
                 <div class="input-group">
@@ -29,7 +30,7 @@
                     </span>
                     <input v-model="data.password" type="password" class="form-control focus-ring focus-ring-success" id="exampleInputPassword1" placeholder="Password">
                 </div>
-                <small :class="{'text-danger':true,'ms-5':errors.password[0]}">{{errors.password ? errors.password[0]:'' }}</small>
+                <small :class="{'text-danger':true,'ms-5':!errors.password? false:errors.password.length>0?true:false}">{{errors.password ? errors.password[0]:'' }}</small>
             </div>
             <div class="form-group mb-4">
                 <div class="input-group">
@@ -79,7 +80,7 @@
                 router.push({name:'Home'})
              })
             .catch(error => {
-                console.error('Error :', error);
+                console.error('Error :', errors.name);
                 errors.value = error.response.data.errors;
             })
     });
