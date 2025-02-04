@@ -5,6 +5,7 @@ import {createRouter, createWebHistory,} from 'vue-router';
 import Reviews from "./pages/Reviews.vue";
 import SignUp from "./pages/SignUp.vue";
 import Login from "./pages/Login.vue";
+import useUserStore from "./store/user";
 
 const routes = [{
     path:'/',
@@ -13,7 +14,16 @@ const routes = [{
         {path:'/', name:'Home', component:Home},
         {path:'/library', name:'Library', component:Library},
         {path:'/reviews', name:'Reviews', component:Reviews},
-    ]
+    ],
+    beforeEnter: async (to, from, next) => {
+        try{
+            const userStore = useUserStore();
+            await userStore.fetchUser();
+            next();
+        } catch(error){
+            next(false)
+        }
+    }
 },
 {
     path:'/login',
