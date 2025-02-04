@@ -11,7 +11,7 @@
                     </span>
                     <input v-model="data.name" type="text" class="form-control focus-ring focus-ring-success" id="exampleInputName1"  aria-describedby="nameHelp" placeholder="Username">
                 </div>
-                <small class=" text-danger">{{errors.name ? errors.name[0]:"" }}</small>
+                <small :class="{'text-danger':true,'ms-5':errors.name[0]}">{{errors.name ? errors.name[0]:'' }}</small>
             </div>
             <div class="form-group mb-4">
                 <div class="input-group">
@@ -20,7 +20,7 @@
                     </span>
                     <input v-model="data.email" type="email" class="form-control focus-ring focus-ring-success" id="exampleInputEmail1"  aria-describedby="emailHelp" placeholder="Email Address">
                 </div>
-                <small class="ms-5 text-danger">{{errors.email ? errors.email[0]:'' }}</small>
+                <small :class="{'text-danger':true,'ms-5':errors.email[0]}">{{errors.email ? errors.email[0]:'' }}</small>
             </div>
             <div class="form-group mb-4">
                 <div class="input-group">
@@ -29,7 +29,7 @@
                     </span>
                     <input v-model="data.password" type="password" class="form-control focus-ring focus-ring-success" id="exampleInputPassword1" placeholder="Password">
                 </div>
-                <small class="ms-5 text-danger">{{errors.password ? errors.password[0]:'' }}</small>
+                <small :class="{'text-danger':true,'ms-5':errors.password[0]}">{{errors.password ? errors.password[0]:'' }}</small>
             </div>
             <div class="form-group mb-4">
                 <div class="input-group">
