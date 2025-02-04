@@ -1,6 +1,6 @@
 <template>
   <div class="btn-group my-2 ms-md-1">
-    <button class="btn btn-outline-primary" @click="editReview(prop)">Edit</button>
+    <button class="btn btn-outline-success" @click="editReview(prop)">Edit</button>
     <button class="btn btn-danger" @click="deleteReview(prop.id)">Remove</button>
   </div>
 
@@ -28,8 +28,8 @@
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" @click="cancelEdit" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" @click="updateReview" class="btn btn-primary">Save changes</button>
+          <button type="button" @click="cancelEdit" class="btn btn-secondary rounded-1" data-bs-dismiss="modal">Close</button>
+          <button type="button" @click="updateReview" class="btn btn-success rounded-1 fw-bold">Save changes</button>
         </div>
       </div>
     </div>
@@ -99,6 +99,15 @@ const deleteReview = (reviewId) => {
 </script>
 
 <style scoped>
+  .btn-success{
+        background-color: #19AA8D;
+        border-color: #19AA8D;
+    }
+  .btn-success:hover, .btn-outline-success:hover{
+      background-color: #1a9e84;
+      border-color: #1a9e84;
+  }
+
 .custom-input {
   background: transparent;
   border: none;

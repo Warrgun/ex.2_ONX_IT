@@ -7,7 +7,7 @@
                     <form class="mb-3" @submit.prevent="addReview">
                       <div class="mb-3">
                         <h6>Choose a book</h6>
-                        <select v-model="review.book_id" class="form-select w-100 bg-primary bg-opacity-75 text-light overflow-auto" size="2" id="books" name="books"  aria-label="Size 3 select example">
+                        <select v-model="review.book_id" class="form-select w-100 bg-opacity-75 text-light overflow-auto" size="2" id="books" name="books"  aria-label="Size 3 select example">
                           <option v-for="book in books" :key="book.id" :value="book.id">{{ book.title }}</option>
                         </select>
                       </div>
@@ -20,7 +20,7 @@
                       <div class="mb-3">
                           <textarea v-model="review.review" id="review1" name="review1" placeholder="Your review" class="form-control custom-input rounded-0" required></textarea>
                       </div>
-                      <button type="submit" class="btn btn-primary w-100">Send a review</button>
+                      <button type="submit" class="btn btn-success rounded-1 w-100 fw-bold">Send a review</button>
                     </form>
                     <a class=" text-dark opacity-75 text-decoration-none" target="_blank" href="https://www.vecteezy.com/free-png/book">Book PNGs by Vecteezy</a>
                 </div>
@@ -33,7 +33,7 @@
         </div>
       <div class="w-100 rounded-2 d-flex justify-content-between align-items-center text-bg-light p-3  mt-5">
         <h4 class="m-0">Book collection</h4>
-        <select class="form-select bg-primary text-light" @change="fetchData" v-model="selectedSort" aria-label="Default select example">
+        <select class="form-select text-light" @change="fetchData" v-model="selectedSort" aria-label="Default select example">
           <option selected value="">filter by</option>
           <option value="title">title</option>
           <option value="author">author</option>
@@ -97,6 +97,20 @@
   </script>
   
   <style scoped>
+  
+  select:focus{
+    border-color: #19aa8d9a;
+    box-shadow: 0 0 0 0.2rem #19aa8d9d !important;
+  }
+
+    .btn-success, select{
+        background-color: #19AA8D;
+        border-color: #19AA8D;
+    }
+    .btn-success:hover{
+        background-color: #1a9e84;
+        border-color: #1a9e84;
+    }
    .fw-bold {
     font-weight: bold;
   }

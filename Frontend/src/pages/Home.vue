@@ -17,7 +17,7 @@
                     <div class="mb-3">
                         <textarea v-model="book.description" id="desc" name="desc" class="form-control custom-input rounded-0" placeholder="Description (optional)" rows="3"></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary w-100">Add Book</button>
+                    <button type="submit" class="btn btn-success rounded-1 w-100 fw-bold">Add Book</button>
                     </form>
                 </div>
             </div>
@@ -56,6 +56,14 @@
   </script>
   
   <style scoped>
+  .btn-success{
+        background-color: #19AA8D;
+        border-color: #19AA8D;
+    }
+    .btn-success:hover{
+        background-color: #1a9e84;
+        border-color: #1a9e84;
+    }
   .book-form {
     background: rgba(255, 255, 255, 1);
     border-radius: 10px;
